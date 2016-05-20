@@ -53,6 +53,6 @@ In our paper we used Madmom version ```0.13```.
 
 This is the algorithm used in [Rekordbox](http://rekordbox.com) software.
 Rekordbox does not provide any command line utility or software bindings to systematically analyse a collection of files.
-Please follow [these instructions](TODOlink#rekbox) to get a collection annotated with RekBox algorithm.
+Please follow [these instructions](analyze_dataset.md#rekbox) to get a collection annotated with RekBox algorithm.
 
 For our analyses we used Rekordbox version 4.0.5.

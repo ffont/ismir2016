@@ -1,7 +1,7 @@
 # Instructions for analyzing datasets
 
 Every folder in the `settings.DATA` directory is treated as a dataset.
-Initially, each dataset should contain the following file structure (see [Instructions for creating the datasets](TODO link)):
+Initially, each dataset should contain the following file structure (see [Instructions for setting up datasets](create_dataset.md)):
 
 ```
 dataset_name/
@@ -19,7 +19,7 @@ The simplest way to run this is script is as follows:
 python scripts/analyze_dataset.py dataset_folder_path
 ```
 
-*Note:* check the [source code of the script](TODO link) for extra running options (including the use of celery to speed-up computation time).
+*Note:* check the [source code of the script](https://github.com/ffont/ismir2016/blob/master/scripts/analyze_dataset.py) for extra running options (including the use of celery to speed-up computation time).
 
 After running the script, a number of `JSON` files will be generated inside the dataset folder with the results of the different analyses:
 
@@ -36,7 +36,7 @@ dataset_name/
 ```
  
 If the algorithms are not properly set up some of this files might 
-be empty or the whole analysis script might fail (see [Instructions for setting up algorithms](TODO link)). The notebooks will only consider for evaluation the methods that have been used to
+be empty or the whole analysis script might fail (see [Instructions for setting up algorithms](setting_up_algorithms.md)). The notebooks will only consider for evaluation the methods that have been used to
 successfully annotate the datasets.
 
 
