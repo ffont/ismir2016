@@ -1,6 +1,6 @@
 # Tempo Estimation for Music Loops and a Simple Confidence Measure
 
-This repository contains instructions for reproducing the research described in the paper *Font, F., & Serra, X. (2016). Tempo Estimation for Music Loops and a Simple Confidence Measure. In Int. Conf. on Music Information Retrieval (ISMIR) (pp. 1–7)*. The full text of the paper can be [found here](TODOlink). It includes code, data and research analyses.
+This repository contains instructions for reproducing the research described in the paper *Font, F., & Serra, X. (2016). Tempo Estimation for Music Loops and a Simple Confidence Measure. In Int. Conf. on Music Information Retrieval (ISMIR) (pp. 1–7)*. The full text of the paper can be [found here](http://mtg.upf.edu/node/3479). It includes code, data and research analyses.
 
 In order to run the analyses described in the paper you'll need to set up the 
 datasets and analyze its content. Below you'll find the instructions gor setting up the datasets, analysis algorithms and scripts. Before setting up any of these, you should create a Python virtual environment and install the requirements
