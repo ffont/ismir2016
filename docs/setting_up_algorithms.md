@@ -4,8 +4,9 @@
 
 This algorithm is described in *Graham Percival and George Tzanetakis. Streamlined tempo estimation based on autocorrelation and cross-correlation with pulses. IEEE/ACM Transac- tions on Audio, Speech, and Language Processing, 22(12):1765–1776, 2014*.
 
-In our repository we include the Python version of the code which was originally provided by the authors and can be found in  [http://opihi.cs.uvic.ca/tempo/](http://opihi.cs.uvic.ca/tempo/) 
-The algorithm has depenencies on typical Python science packages (numpy, scipy) which are included in the ```requirements.txt``` file found in the root of this repository.
+In our repository we include the Python version of the code which was originally provided by the authors and can be found [http://opihi.cs.uvic.ca/tempo/](http://opihi.cs.uvic.ca/tempo/). Code from the authors can also be found in the [Marsyas](http://marsyas.info) audio analysis library [code repository](https://github.com/marsyas/marsyas/tree/master/scripts/large-evaluators/tempo-reference-implementation).
+
+The algorithm has depenencies on typical Python science packages (numpy, scipy) which will be installed when installing the packages listed in the ```requirements.txt``` file found in the root of this repository.
 
 
 #### Gkiokas12
