@@ -58,15 +58,16 @@ To do that you'll need to create a Freesound account and follow these steps:
  * 6) Fill `FREESOUND_ACCESS_TOKEN` with the contents of the alphanumeric string `access_token` of the response.  
  
 By following this process you'll get an access token that will allow to download freesound audio files in their original format.
-This access token will be valid for 24 hours. If you run the script when the access token has expired, you'll need to follow againg these steps to get a new token.
+This access token will be valid for 24 hours. If you run the script when the access token has expired, you'll need to follow again these steps to get a new token.
   
 Once you have filled `FREESOUND_API_KEY` and `FREESOUND_ACCESS_TOKEN` you can now run the script to recreate the FSL4 dataset.
  
 ```
-python scripts/create_freesound_loops_dataset.py path_where_you_want_to_store_the_dataset
+python scripts/create_freesound_loops_dataset.py --max_sounds 4000 path_where_you_want_to_store_the_dataset
 ```
 
 Note that it might take a while to download all the sounds and metadata. 
+Note also that because of throttling limits of the Freesound API the script might not be able to download all the sounds in one day. By default Freesound API allows 2000 requests per day, meaning that no more than 2000 sounds can be downloaded per day in their original quality. The solutions around that are either to run the script in consecutive days (sounds already downloaded won't be downloaded again) or to ask for more permissive limits to the Freesound API maintainers (see [API documentation](http://www.freesound.org/docs/api/)). 
 Once sounds are downloaded the script will also convert the audio files to 44.1 kHz, mono, 16 bit PCM format.
 This conversion uses `ffmpeg` command line utility, therefore you'll need to have it installed in your system.
 

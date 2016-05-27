@@ -19,7 +19,7 @@ The simplest way to run this is script is as follows:
 python scripts/analyze_dataset.py dataset_folder_path
 ```
 
-*Note:* check the [source code of the script](https://github.com/ffont/ismir2016/blob/master/scripts/analyze_dataset.py) for extra running options (including the use of celery to speed-up computation time).
+*Note:* check the [source code of the script](https://github.com/ffont/ismir2016/blob/master/scripts/analyze_dataset.py) for extra running options (including the [use of celery to speed-up computation time](#celery)).
 
 After running the script, a number of `JSON` files will be generated inside the dataset folder with the results of the different analyses:
 
@@ -58,4 +58,18 @@ For this reason, getting RekBox results for a dataset must be done manually foll
  ```
  
 This will create the file `analysis_rhythm_rekordbox.json` that can be loaded in the same way as the other generated analysis files.
- 
+
+
+<a name="celery"></a>
+
+## Use Celery to speed-up analysis
+
+The analysis script has an option to use [Celery](http://www.celeryproject.org) for distributing the analsyis and making it faster taking advantage of multiple CPU cores.
+In order to use Celery, you must [install](http://www.celeryproject.org/install/) it along with a broker backend (we use [RabbitMQ](http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#rabbitmq)). Then you must start the borker and start the Celery task queue:
+
+```
+sudo rabbitmq-server -detached  # Start broker (RabbitMQ in this case)
+celery -A tasks worker --concurrency=NUM_WORKERS  # Start Celery specifying NUM_WORKERS to work in parallel
+``` 
+
+Once Celery is running you can call the analysis script passing the option `--use_celery`.
