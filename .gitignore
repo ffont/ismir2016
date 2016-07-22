@@ -3,5 +3,3 @@
 *.pyc
 .ipynb_checkpoints/
 */out/*
-data/
-
