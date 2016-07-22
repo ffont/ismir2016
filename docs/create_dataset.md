@@ -22,7 +22,7 @@ You'll also find instructions below on how to recreate these datasets assuming y
 
 The whole dataset can be downloaded from [here](http://labs.freesound.org/static_data/FSL4/FSL4.zip). 
 It contains the audios for all sounds in their original format plus the metadata (including BPM annotations) for each file.
-Once downloaded you can use the `convert_audio_filed_to_wav.py` script to convert all sounds to 44.1 kHz, mono, 16 bit PCM format:
+Once downloaded you can use the `convert_audio_files_to_wav.py` script to convert all sounds to 44.1 kHz, mono, 16 bit PCM format:
 
  ```
  python scripts/convert_audio_files_to_wav.py SOURCE_FOLDER --outdir OUTPUT_FOLDER 
