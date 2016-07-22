@@ -2,7 +2,7 @@
 
 This repository contains code and instructions for reproducing the research described in the 
 paper *Font, F., & Serra, X. (2016). Tempo Estimation for Music Loops and a Simple Confidence 
-Measure. In Int. Conf. on Music Information Retrieval (ISMIR) (pp. 1–7)*. The full text of the 
+Measure. In Int. Conf. on Music Information Retrieval (ISMIR)*. The full text of the 
 paper can be [found here](http://mtg.upf.edu/node/3479).
 
 In order to run the experiments described in the paper you'll need to set up the 
