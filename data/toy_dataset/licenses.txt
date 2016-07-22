@@ -11,19 +11,19 @@ following 10 sounds that have been obtained from Freesound:
 
     "8bit110bpm-50.wav" by LoopPacks
     Url: https://freesound.org/people/LoopPacks/sounds/200938/
-    License: Attribution
+    License: Creative Commons Attribution
 
     "140 dubstep loop 5.wav" by OttoRecV8
     Url: https://freesound.org/people/OttoRecV8/sounds/178906/
-    License: Attribution
+    License: Creative Commons Attribution
 
     "140 Break loop 1.wav" by OttoRecV8
     Url: https://freesound.org/people/OttoRecV8/sounds/178905/
-    License: Attribution
+    License: Creative Commons Attribution
 
     "140 dubstep loop 2.wav" by OttoRecV8
     Url: https://freesound.org/people/OttoRecV8/sounds/178904/
-    License: Attribution
+    License: Creative Commons Attribution
 
     "acid bass ksynth 126 loop.wav" by Snapper4298
     Url: https://freesound.org/people/Snapper4298/sounds/160352/
@@ -31,7 +31,7 @@ following 10 sounds that have been obtained from Freesound:
 
     "edison_140d.wav" by NoiseCollector
     Url: https://freesound.org/people/NoiseCollector/sounds/63470/
-    License: Attribution
+    License: Creative Commons Attribution
 
     "kicks.aif" by asdftekno
     Url: https://freesound.org/people/asdftekno/sounds/48528/
@@ -39,7 +39,7 @@ following 10 sounds that have been obtained from Freesound:
 
     "91Apat99999.wav" by NoiseCollector
     Url: https://freesound.org/people/NoiseCollector/sounds/43209/
-    License: Attribution
+    License: Creative Commons Attribution
 
     "flute loop.wav" by pryght one
     Url: https://freesound.org/people/pryght one/sounds/27129/
