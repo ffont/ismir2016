@@ -43,4 +43,4 @@ following 10 sounds that have been obtained from Freesound:
 
     "flute loop.wav" by pryght one
     Url: https://freesound.org/people/pryght one/sounds/27129/
-    License: Sampling+
+    License: Creative Commons Sampling+
