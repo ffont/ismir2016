@@ -43,7 +43,8 @@ def accuracy2(data, method, sound_ids=None, tolerance=0.04, skip_zeroed_values=F
                 continue
         except KeyError:
             # Method produced no estimation
-            output.append(0)
+            if not skip_zeroed_values:
+                output.append(0)
             continue
 
         threshold = tolerance * float(ground_truth_value)
@@ -81,7 +82,8 @@ def accuracy1e(data, method, sound_ids=None, skip_zeroed_values=False):
                 continue
         except KeyError:
             # Method produced no estimation
-            output.append(0)
+            if not skip_zeroed_values:
+                output.append(0)
             continue
 
         if int(round(estimated_value)) == int(round(ground_truth_value)):

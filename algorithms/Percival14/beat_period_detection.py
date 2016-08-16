@@ -91,7 +91,7 @@ def beat_period_detection(defs, oss_sr, oss_data, plot=False):
         #    numpy.zeros(defs.BH_WINDOWSIZE - defs.BH_HOPSIZE),
         #    oss_data[:-2*defs.BH_HOPSIZE]),
         oss_data,
-        defs.BH_WINDOWSIZE, defs.BH_HOPSIZE)
+        defs.BH_WINDOWSIZE, defs.BH_HOPSIZE, zeroPad=True)
     #beat_period_sr = oss_sr / defs.BH_HOPSIZE
 
     ### 2) Generalized Autocorrelation
@@ -161,4 +161,3 @@ def beat_period_detection(defs, oss_sr, oss_data, plot=False):
             pylab.show()
             exit(1)
     return tempo_lags
-

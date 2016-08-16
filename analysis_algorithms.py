@@ -1,6 +1,7 @@
 from ac_utils.sound import load_audio_file
 import numpy as np
 import essentia.standard as estd
+import essentia
 import settings
 import subprocess
 
@@ -32,8 +33,49 @@ def algorithm_rhythm_essentia_basic(sound):
     results['Degara12'] = {'bpm': bpm}
     return results
 
+def algorithm_rhythm_percival_essentia(sound):
+    results = dict()
+    audio = load_audio_file(file_path=sound[SOUND_FILE_KEY], sample_rate=44100)
+    tempo_estimator = estd.TempoEstimator()
+    bpm = tempo_estimator(audio)
+    results['Percival14_essentia'] = {'bpm': bpm}
 
-def algorithm_rhythm_percival14(sound):
+    return results
+
+def algorithm_rhythm_percival_essentia_zp6(sound):
+    results = dict()
+    audio = load_audio_file(file_path=sound[SOUND_FILE_KEY], sample_rate=44100)
+    if len(audio.shape) > 1:
+        audio = audio[:, 0]
+    min_duration = 6  # In seconds
+    minimum_size = min_duration * 44100
+    if audio.shape[0] < minimum_size:
+        audio = np.append(np.zeros(minimum_size - audio.shape[0]), audio)
+    audio = essentia.array(audio)
+    tempo_estimator = estd.TempoEstimator()
+    bpm = tempo_estimator(audio)
+    results['Percival14_essentia_zp6'] = {'bpm': bpm}
+
+    return results
+
+def algorithm_rhythm_percival_essentia_zp10(sound):
+    print 'analyzing sound %s' % sound[SOUND_FILE_KEY]
+    results = dict()
+    audio = load_audio_file(file_path=sound[SOUND_FILE_KEY], sample_rate=44100)
+    if len(audio.shape) > 1:
+        audio = audio[:, 0]
+    min_duration = 10  # In seconds
+    minimum_size = min_duration * 44100
+    if audio.shape[0] < minimum_size:
+        audio = np.append(np.zeros(minimum_size - audio.shape[0]), audio)
+    audio = essentia.array(audio)
+    tempo_estimator = estd.TempoEstimator()
+    bpm = tempo_estimator(audio)
+    results['Percival14_essentia_zp10'] = {'bpm': bpm}
+
+    return results
+
+def algorithm_rhythm_percival14_zp6(sound):
     """
     Percival, G., & Tzanetakis, G. (2014). Streamlined tempo estimation based on autocorrelation and cross-correlation
     with pulses. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 22(12), 1765-1776.
@@ -61,7 +103,108 @@ def algorithm_rhythm_percival14(sound):
         oss_sr, oss_data = onset_strength_signal(defs, sample_rate, audio, plot=False)
         tempo_lags = beat_period_detection(defs, oss_sr, oss_data, plot=False)
         bpm = accumulator_overall(defs, tempo_lags, oss_sr)
+        results['Percival14_zp6'] = {'bpm': bpm}
+    except ValueError:
+        pass
+    return results
+
+
+def algorithm_rhythm_percival14(sound):
+    """
+    Percival, G., & Tzanetakis, G. (2014). Streamlined tempo estimation based on autocorrelation and cross-correlation
+    with pulses. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 22(12), 1765-1776.
+    :param sound: sound dictionary from dataset
+    :return: dictionary with results
+    """
+    results = dict()
+    sample_rate = 44100
+    audio = load_audio_file(file_path=sound[SOUND_FILE_KEY], sample_rate=sample_rate)
+
+    # Convert to mono and add silence at the beginning if sound is shorter than 6s (otherwise algorithm fails)
+    if len(audio.shape) > 1:
+        audio = audio[:, 0]
+    #min_duration = 6  # In seconds
+    #minimum_size = min_duration * sample_rate
+    #if audio.shape[0] < minimum_size:
+    #    audio = np.append(np.zeros(minimum_size - audio.shape[0]), audio)
+
+    try:
+        from algorithms.Percival14.defs_class import Defs
+        from algorithms.Percival14.onset_strength import onset_strength_signal
+        from algorithms.Percival14.beat_period_detection import beat_period_detection
+        from algorithms.Percival14.accumulator_overall import accumulator_overall
+        defs = Defs()
+        oss_sr, oss_data = onset_strength_signal(defs, sample_rate, audio, plot=False)
+        tempo_lags = beat_period_detection(defs, oss_sr, oss_data, plot=False)
+        bpm = accumulator_overall(defs, tempo_lags, oss_sr)
         results['Percival14'] = {'bpm': bpm}
+    except ValueError:
+        pass
+    return results
+
+
+def algorithm_rhythm_percival14_zp10(sound):
+    """
+    Percival, G., & Tzanetakis, G. (2014). Streamlined tempo estimation based on autocorrelation and cross-correlation
+    with pulses. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 22(12), 1765-1776.
+    :param sound: sound dictionary from dataset
+    :return: dictionary with results
+    """
+    results = dict()
+    sample_rate = 44100
+    audio = load_audio_file(file_path=sound[SOUND_FILE_KEY], sample_rate=sample_rate)
+
+    # Convert to mono and add silence at the beginning if sound is shorter than 6s (otherwise algorithm fails)
+    if len(audio.shape) > 1:
+        audio = audio[:, 0]
+    min_duration = 10  # In seconds
+    minimum_size = min_duration * sample_rate
+    if audio.shape[0] < minimum_size:
+        audio = np.append(np.zeros(minimum_size - audio.shape[0]), audio)
+
+    try:
+        from algorithms.Percival14.defs_class import Defs
+        from algorithms.Percival14.onset_strength import onset_strength_signal
+        from algorithms.Percival14.beat_period_detection import beat_period_detection
+        from algorithms.Percival14.accumulator_overall import accumulator_overall
+        defs = Defs()
+        oss_sr, oss_data = onset_strength_signal(defs, sample_rate, audio, plot=False)
+        tempo_lags = beat_period_detection(defs, oss_sr, oss_data, plot=False)
+        bpm = accumulator_overall(defs, tempo_lags, oss_sr)
+        results['Percival14_zp10'] = {'bpm': bpm}
+    except ValueError:
+        pass
+    return results
+
+def algorithm_rhythm_percival14_zp15(sound):
+    """
+    Percival, G., & Tzanetakis, G. (2014). Streamlined tempo estimation based on autocorrelation and cross-correlation
+    with pulses. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 22(12), 1765-1776.
+    :param sound: sound dictionary from dataset
+    :return: dictionary with results
+    """
+    results = dict()
+    sample_rate = 44100
+    audio = load_audio_file(file_path=sound[SOUND_FILE_KEY], sample_rate=sample_rate)
+
+    # Convert to mono and add silence at the beginning if sound is shorter than 6s (otherwise algorithm fails)
+    if len(audio.shape) > 1:
+        audio = audio[:, 0]
+    min_duration = 15  # In seconds
+    minimum_size = min_duration * sample_rate
+    if audio.shape[0] < minimum_size:
+        audio = np.append(np.zeros(minimum_size - audio.shape[0]), audio)
+
+    try:
+        from algorithms.Percival14.defs_class import Defs
+        from algorithms.Percival14.onset_strength import onset_strength_signal
+        from algorithms.Percival14.beat_period_detection import beat_period_detection
+        from algorithms.Percival14.accumulator_overall import accumulator_overall
+        defs = Defs()
+        oss_sr, oss_data = onset_strength_signal(defs, sample_rate, audio, plot=False)
+        tempo_lags = beat_period_detection(defs, oss_sr, oss_data, plot=False)
+        bpm = accumulator_overall(defs, tempo_lags, oss_sr)
+        results['Percival14_zp15'] = {'bpm': bpm}
     except ValueError:
         pass
     return results
