@@ -93,7 +93,7 @@ def calc_pulse_trains(lag, window, limit_pulse_trains):
 
 
 def beat_period_detection(defs, oss_sr, oss_data, plot=False, 
-    limit_pulse_trains=False, skip_calc_pulse_trains=False):
+    limit_pulse_trains=False, skip_calc_pulse_trains=False, intermediate_data=False):
     ### 1) Overlap
     overlapped = overlap.sliding_window(
         #numpy.append(
@@ -173,4 +173,8 @@ def beat_period_detection(defs, oss_sr, oss_data, plot=False,
             pylab.plot(delta)
             pylab.show()
             exit(1)
-    return tempo_lags
+
+    if not intermediate_data:
+        return tempo_lags
+    else:
+        return tempo_lags, peaks

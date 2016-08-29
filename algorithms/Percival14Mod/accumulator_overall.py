@@ -29,7 +29,7 @@ def info_histogram(bpm, histo, tolerance):
 
 
 
-def accumulator_overall(defs, tempo_lags, oss_sr):
+def accumulator_overall(defs, tempo_lags, oss_sr, intermediate_data=False):
     pdf = scipy.stats.norm.pdf(numpy.arange(2000)-1000, loc=0,
         scale=10)
 
@@ -84,6 +84,9 @@ def accumulator_overall(defs, tempo_lags, oss_sr):
         if (svm_sum51 <= 0) and (svm_sum52 <= 0):
             mult = 0.5
 
-    return mult*bpm
+    if not intermediate_data:
+        return mult*bpm
+    else:
+        return mult*bpm, accum, mult
 
 
