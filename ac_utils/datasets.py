@@ -164,3 +164,10 @@ class Dataset(object):
             return out_dict
         else:
             raise Exception(u'Unknown format \'%s\'' % format)
+
+    def get_sound_path(self, sound_id):
+        try:
+            sound = self.data[str(sound_id)]
+        except KeyError:
+            raise Exception(u'Sound with id %s does not exist' % str(sound_id))
+        return "%s%s/%s" % (settings.DATA_PATH, self.dirname , sound['original_sound_path'])
