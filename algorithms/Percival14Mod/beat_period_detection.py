@@ -1,4 +1,3 @@
-import math
 import itertools
 import operator
 
@@ -177,4 +176,4 @@ def beat_period_detection(defs, oss_sr, oss_data, plot=False,
     if not intermediate_data:
         return tempo_lags
     else:
-        return tempo_lags, peaks
+        return tempo_lags, peaks, autocorr, harmonic_enhanced, overlapped
