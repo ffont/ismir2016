@@ -36,7 +36,7 @@ def algorithm_rhythm_essentia_basic(sound):
 def algorithm_rhythm_percival_essentia(sound):
     results = dict()
     audio = load_audio_file(file_path=sound[SOUND_FILE_KEY], sample_rate=44100)
-    tempo_estimator = estd.TempoEstimator()
+    tempo_estimator = estd.PercivalBpmEstimator()
     bpm = tempo_estimator(audio)
     results['Percival14_essentia'] = {'bpm': bpm}
 
@@ -158,4 +158,59 @@ def algorithm_rhythm_madmom(sound):
     else:
         bpm = t2
     results['Bock15'] = {'bpm': bpm}
+    return results
+
+
+def algorithm_rhythm_madmom_acf(sound):
+    """
+    Accurate Tempo Estimation based on Recurrent Neural Networks and Resonating Comb Filters. Sebastian Bock, Florian
+    Krebs and Gerhard Widmer. Proceedings of the 16th International Society for Music Information Retrieval Conference
+    (ISMIR), 2015
+    :param sound: sound dictionary from dataset
+    :return: dictionary with results
+    """
+    results = dict()
+    command = ['TempoDetector', '--mirex', '--method', 'acf', 'single']
+    p = subprocess.Popen(command + [sound[SOUND_FILE_KEY]], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    if err:
+        print '\n' + err + '\n'
+        print sound[SOUND_FILE_KEY].replace(" ", "\ ")
+        return results
+    result = out.split('\t')
+    t1 = float(result[0])
+    t2 = float(result[1])
+    st1 = float(result[2])
+    if st1 >= 0.5:  # Select most probable tempo
+        bpm = t1
+    else:
+        bpm = t2
+    results['Bock15ACF'] = {'bpm': bpm}
+    return results
+
+def algorithm_rhythm_madmom_dbn(sound):
+    """
+    Accurate Tempo Estimation based on Recurrent Neural Networks and Resonating Comb Filters. Sebastian Bock, Florian
+    Krebs and Gerhard Widmer. Proceedings of the 16th International Society for Music Information Retrieval Conference
+    (ISMIR), 2015
+    :param sound: sound dictionary from dataset
+    :return: dictionary with results
+    """
+    results = dict()
+    command = ['TempoDetector', '--mirex', '--method', 'dbn', 'single']
+    p = subprocess.Popen(command + [sound[SOUND_FILE_KEY]], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    if err:
+        print '\n' + err + '\n'
+        print sound[SOUND_FILE_KEY].replace(" ", "\ ")
+        return results
+    result = out.split('\t')
+    t1 = float(result[0])
+    t2 = float(result[1])
+    st1 = float(result[2])
+    if st1 >= 0.5:  # Select most probable tempo
+        bpm = t1
+    else:
+        bpm = t2
+    results['Bock15DBN'] = {'bpm': bpm}
     return results
