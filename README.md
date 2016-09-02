@@ -22,6 +22,8 @@ IPython notebooks which contain the code to generate the results and plots shown
  * [Datasets](Datasets.ipynb): information and statistics about the datasets, corresponds to Section 4.1 of the paper.
  * [Confidence measure](Confidence%20measure.ipynb): description of the confidence measure with examples and code, corresponds to Section 3 of the paper.
  * [Tempo estimation results](Tempo%20estimation%20results.ipynb): evaluation of the different tempo estimation algorithms and confidence measure, corresponds to Section 5 of the paper.
+ 
+**UPDATE**: we implemented Percival's BPM estimation method in Essentia (see [PercivalBpmEstimator  algorithm](https://github.com/MTG/essentia/blob/master/src/algorithms/rhythm/percivalbpmestimator.cpp)). The following notebooks compare the results of the Essentia implementation and the original Python implementation provided by the authors ([notebook1](https://github.com/ffont/ismir2016/blob/master/Compare%20Percival14%20variations.ipynb), [notebook2](https://github.com/ffont/ismir2016/blob/master/Percival14Mod%20vs%20Percival14_essentia.ipynb)).
 
 
 
