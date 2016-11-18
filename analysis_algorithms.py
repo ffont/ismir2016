@@ -1,4 +1,5 @@
 from ac_utils.sound import load_audio_file
+from essentia import Pool
 import numpy as np
 import essentia.standard as estd
 import essentia
@@ -32,6 +33,49 @@ def algorithm_rhythm_essentia_basic(sound):
     bpm, ticks, confidence, _, bpm_intervals = rhythm_extractor_2013(audio)
     results['Degara12'] = {'bpm': bpm}
     return results
+
+
+def algorithm_rhythm_essentia_rhythm_transform(sound):
+    """
+    Explanation of Rhythm Transform:
+    - Mel bands are computed on frames of the size 8192 with the frames sample rate = sampleRate/hopSize = 22050/1024 = 21.5Hz
+    - Rhythm transform frame size is equal to 256 Mel bands frames
+    - Output vector is of size 256/2 + 1 = 129.
+    - Therefore it represents periodicities over the interval 0Hz (0th bin) to 22050/1024/2 = 10.75Hz (129th bin),
+    - Converting to BPM values this corresponds to an interval from 0 BPM to 22050/1024/2 * 60 = 646 BPM
+    - Each bin roughly covers 5 BPM
+    - 60-200 BPM interval is covered by only 40-12 = 28 bins
+    - 120 BPM rougphly corresponds to bin #24
+    - bin 0 = 0 BPM
+    - bin 128 = 645.99609375 BPM
+    """
+    sampleRate   = 22050
+    frameSize    = 8192
+    hopSize      = 1024
+    rmsFrameSize = 256
+    rmsHopSize   = 32
+
+    loader = estd.MonoLoader(filename=sound[SOUND_FILE_KEY], sampleRate=sampleRate)
+    w = estd.Windowing(type='blackmanharris62')
+    spectrum = estd.Spectrum()
+    melbands = estd.MelBands(sampleRate=sampleRate, numberBands=40, lowFrequencyBound=0, highFrequencyBound=sampleRate/2)
+
+    pool = Pool()
+
+    for frame in estd.FrameGenerator(audio=loader(), frameSize=frameSize, hopSize=hopSize, startFromZero=True):
+        bands = melbands(spectrum(w(frame)))
+        pool.add('melbands', bands)
+
+    rhythmtransform = estd.RhythmTransform(frameSize=rmsFrameSize, hopSize=rmsHopSize)
+    rt = rhythmtransform(pool['melbands'])
+    rt_mean = np.mean(rt, axis=0)
+    bin_resoluion = 5.007721656976744
+
+    bpm = np.argmax(rt_mean) * bin_resoluion
+    results = dict()
+    results['RhythmTransform'] = {'bpm': bpm}
+    return results
+
 
 def algorithm_rhythm_percival_essentia(sound):
     results = dict()
